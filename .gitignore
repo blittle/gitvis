@@ -14,3 +14,9 @@ results
 npm-debug.log
 node_modules/**/*
 node_modules/*.*
+
+gitvis.iml
+gitvis.ipr
+gitvis.iws
+cachedRepos/**/*
+cachedRepos/*.*
