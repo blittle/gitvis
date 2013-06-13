@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='gitvis'>
   <head>
     <title><%= title %></title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.github.io/skinbuilder/?mode=pureindex.html?opt=mine,3355BA,ffffff,1,1,10,1.5&h=0,-30,60&n=0,-30,75&l=0,-30,80&b=0,-30,90&mode=pure">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="http://code.angularjs.org/1.1.5/angular-resource.js"></script>
+    <script src="/scripts/app.js"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+        <h1 class="mainHead l-centered"><%= title %></h1>
+        <div class="repos" ng-controller="ReposController">
+           <table class="repoTable pure-table pure-table-horizontal">
+                <thead>
+                    <th>Repository</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="repo in repos">
+                        <td ng-click="openRepo(repo.id)">{{repo.name}}</td> 
+                    </tr>
+                </tbody>
+           </table>
+           <form ng-submit="createNewRepo(newRepoName)" class="addRepoForm pure-form">
+               <input type="text" class="pure-input-rounded" placeholder="Github Repo" value="{{newRepoName}}">
+               <button type="submit" class="pure-button pure-button-primary">Add Repo</button>
+           </form>
+        </div>
   </body>
 </html>
