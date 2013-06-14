@@ -1,17 +1,12 @@
 var repoLoader = require('../repoLoader');
 
 exports.getRepos = function(req, res) {
-    repoLoader.getRepos(function(error, repos) {
-        if(error) res.error(error);
-
-        res.send(repos);
-
-    });
+    res.send(repoLoader.getRepos());
 }
 
 exports.getRepo = function(req, res) {
     res.send({
-        fileTree: repoLoader.getRepoData(req.params.id)
+        history: repoLoader.getRepoData(req.params.id)
     });
 }
 

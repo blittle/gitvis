@@ -7,6 +7,11 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="http://code.angularjs.org/1.1.5/angular-resource.js"></script>
+    <script>
+            var gitvis = {
+                repos: <%-JSON.stringify(repos)%>
+            };
+    </script>
     <script src="/scripts/app.js"></script>
   </head>
   <body>
@@ -26,6 +31,7 @@
                <input type="text" class="pure-input-rounded" placeholder="Github Repo" value="{{newRepoName}}">
                <button type="submit" class="pure-button pure-button-primary">Add Repo</button>
            </form>
+           <div>{{loadedRepo.history}}</div>
         </div>
   </body>
 </html>

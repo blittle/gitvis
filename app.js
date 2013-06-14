@@ -8,7 +8,8 @@ var express = require('express')
   , user = require('./routes/user')
   , repos = require('./routes/repos')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , repoLoader = require('./repoLoader');
 
 var app = express();
 
@@ -38,4 +39,7 @@ app.post('/repos', repos.createRepo);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+repoLoader.startRepoScanning();
+repoLoader.stopRepoScanning();
 

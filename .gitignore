@@ -15,8 +15,13 @@ npm-debug.log
 node_modules/**/*
 node_modules/*.*
 
+.idea/*.*
+.idea/**/*
+
 gitvis.iml
 gitvis.ipr
 gitvis.iws
+
 cachedRepos/**/*
 cachedRepos/*.*
+cachedRepos/*
