@@ -29,6 +29,7 @@ function loadRepos() {
 					repoData[repo.id] = {
 						history: ParseGit.parseGit(file)
 					}
+					console.log('Successfully loaded ', repo.name);
 				})
 
 

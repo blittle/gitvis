@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="http://code.angularjs.org/1.1.5/angular-resource.js"></script>
     <script>
-            var gitvis = {
+            var gitvisData = {
                 repos: <%-JSON.stringify(repos)%>
             };
     </script>
@@ -17,24 +17,7 @@
   </head>
   <body>
         <h1 class="mainHead l-centered"><%= title %></h1>
-        <div class="repos" ng-controller="ReposController">
-           <table class="repoTable pure-table pure-table-horizontal">
-                <thead>
-                    <th>Repository</th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="repo in repos">
-                        <td ng-click="openRepo(repo.id)">{{repo.name}}</td>
-                        <td><i ng-click="deleteRepo(repo.id)" class="icon-trash"></i></td>
-                    </tr>
-                </tbody>
-           </table>
-           <form ng-submit="createNewRepo(newRepoName)" class="addRepoForm pure-form">
-               <input type="text" class="pure-input-rounded" placeholder="Github Repo" value="{{newRepoName}}">
-               <button type="submit" class="pure-button pure-button-primary">Add Repo</button>
-           </form>
-           <div>{{loadedRepo.history}}</div>
-        </div>
+        <div ng-view></div>
+        <!--<div class="repos" ng-controller="RepoListController"></div>-->
   </body>
 </html>
