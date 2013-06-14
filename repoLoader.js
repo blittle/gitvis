@@ -21,7 +21,10 @@ function loadRepos() {
 
                 console.log('Loading and parsing repo ', repo.name);
                 fs.readFile('cachedRepos/'+repo.name+'/temp.txt', 'utf8', function(error, file) {
-                    if(error) console.error('Cannot read temporary git log output', repo.name);
+                    if(error || !file) {
+                        console.error('Cannot read temporary git log output', repo.name);
+                        return;
+                    }
 
                     repoData[repo.id] = {
                         history: ParseGit.parseGit(file)
