@@ -4,6 +4,7 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
     <link rel="stylesheet" href="http://yui.github.io/skinbuilder/?mode=pureindex.html?opt=mine,3355BA,ffffff,1,1,10,1.5&h=0,-30,60&n=0,-30,75&l=0,-30,80&b=0,-30,90&mode=pure">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.css" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="http://code.angularjs.org/1.1.5/angular-resource.js"></script>
@@ -20,10 +21,12 @@
            <table class="repoTable pure-table pure-table-horizontal">
                 <thead>
                     <th>Repository</th>
+                    <th></th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="repo in repos">
-                        <td ng-click="openRepo(repo.id)">{{repo.name}}</td> 
+                        <td ng-click="openRepo(repo.id)">{{repo.name}}</td>
+                        <td><i ng-click="deleteRepo(repo.id)" class="icon-trash"></i></td>
                     </tr>
                 </tbody>
            </table>

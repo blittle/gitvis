@@ -4,12 +4,12 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , repos = require('./routes/repos')
-  , http = require('http')
-  , path = require('path')
-  , repoLoader = require('./repoLoader');
+	, routes = require('./routes')
+	, user = require('./routes/user')
+	, repos = require('./routes/repos')
+	, http = require('http')
+	, path = require('path')
+	, repoLoader = require('./repoLoader');
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+	app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
@@ -37,7 +37,7 @@ app.get('/repos/:id', repos.getRepo);
 app.post('/repos', repos.createRepo);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+	console.log('Express server listening on port ' + app.get('port'));
 });
 
 repoLoader.startRepoScanning();

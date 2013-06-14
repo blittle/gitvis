@@ -1,20 +1,26 @@
+body {
+	font-size: 1.2em;
+}
 .l-centered {
-  text-align: center;
+	text-align: center;
 }
 .mainHead {
-  font-size: 5em;
+	font-size: 5em;
 }
 .repos {
-  width: 20em;
-  margin: auto;
+	width: 20em;
+	margin: auto;
 }
 .repos .repoTable {
-  width: 20em;
+	width: 20em;
 }
 .repos .addRepoForm {
-  margin-top: 1em;
+	margin-top: 1em;
+}
+.repos .addRepoForm input {
+	width: 15em;
 }
 table tbody tr:hover {
-  background-color: #eee;
-  cursor: pointer;
+	background-color: #eee;
+	cursor: pointer;
 }

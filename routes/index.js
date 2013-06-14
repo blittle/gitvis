@@ -6,5 +6,5 @@ var RepoLoader = require('../repoLoader');
  */
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Git Visify', repos: RepoLoader.getRepos() });
+	res.render('index', { title: 'Git Visify', repos: RepoLoader.getRepos() });
 };

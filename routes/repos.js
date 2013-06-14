@@ -1,13 +1,13 @@
 var repoLoader = require('../repoLoader');
 
 exports.getRepos = function(req, res) {
-    res.send(repoLoader.getRepos());
+	res.send(repoLoader.getRepos());
 }
 
 exports.getRepo = function(req, res) {
-    res.send({
-        history: repoLoader.getRepoData(req.params.id)
-    });
+	res.send({
+		history: repoLoader.getRepoData(req.params.id)
+	});
 }
 
 exports.createRepo = function(req, res) {
