@@ -8,7 +8,10 @@ var gitvis = angular.module('gitvis', ['ngResource'], function($routeProvider, $
 		templateUrl: '/partials/visualize.html',
 		controller: RepoController
 	})
-});
+
+    $routeProvider
+        .otherwise('/bret');
+}).run();
 
 gitvis.factory('RepoService', function($resource) {
 

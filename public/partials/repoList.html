@@ -1,17 +1,19 @@
-<table class="repoTable pure-table pure-table-horizontal">
-	<thead>
-	<th>Repository</th>
-	<th></th>
-	</thead>
-	<tbody>
-	<tr ng-repeat="repo in repos">
-		<td ng-click="openRepo(repo.id)">{{repo.name}}</td>
-		<td><i ng-click="deleteRepo(repo.id)" class="icon-trash"></i></td>
-	</tr>
-	</tbody>
-</table>
-<form ng-submit="createNewRepo(newRepoName)" class="addRepoForm pure-form">
-	<input type="text" class="pure-input-rounded" placeholder="Github Repo" value="{{newRepoName}}">
-	<button type="submit" class="pure-button pure-button-primary">Add Repo</button>
-</form>
-<div>{{loadedRepo.history}}</div>
+<div class="repos" ng-controller="RepoListController">
+    <table class="repoTable pure-table pure-table-horizontal">
+        <thead>
+        <th>Repository</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="repo in repos">
+            <td ng-click="openRepo(repo.id)">{{repo.name}}</td>
+            <td><i ng-click="deleteRepo(repo.id)" class="icon-trash"></i></td>
+        </tr>
+        </tbody>
+    </table>
+    <form ng-submit="createNewRepo(newRepoName)" class="addRepoForm pure-form">
+        <input type="text" class="pure-input-rounded" placeholder="Github Repo" value="{{newRepoName}}">
+        <button type="submit" class="pure-button pure-button-primary">Add Repo</button>
+    </form>
+    <div>{{loadedRepo.history}}</div>
+</div>
