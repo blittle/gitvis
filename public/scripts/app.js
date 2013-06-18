@@ -1,5 +1,5 @@
 var gitvis = angular.module('gitvis', ['ngResource'], function($routeProvider, $locationProvider) {
-	$routeProvider.when('bret', {
+	$routeProvider.when('/', {
 		templateUrl: '/partials/repoList.html',
 		controller: RepoListController
 	});
@@ -7,10 +7,10 @@ var gitvis = angular.module('gitvis', ['ngResource'], function($routeProvider, $
 	$routeProvider.when('/visualize/:id', {
 		templateUrl: '/partials/visualize.html',
 		controller: RepoController
-	})
+	});
 
-    $routeProvider
-        .otherwise('/bret');
+//	$locationProvider.html5Mode(true);
+
 }).run();
 
 gitvis.factory('RepoService', function($resource) {
@@ -33,14 +33,14 @@ gitvis.factory('RepoService', function($resource) {
 	}
 });
 
-function RepoListController($scope, $resource, $routeParams, RepoService) {
+function RepoListController($scope, $resource, $location, $routeParams, RepoService) {
 
 	var Repo = $resource('/repos/:id');
 
 	$scope.repos = gitvisData.repos;
 
 	$scope.openRepo = function(id) {
-		window.location = "#/visualize/" + id
+		$location.path( "visualize/" + id );
 	};
 
 	$scope.createNewRepo = function(name) {
@@ -53,6 +53,6 @@ function RepoListController($scope, $resource, $routeParams, RepoService) {
 	}
 }
 
-function RepoController($scope, $resource, $RepoService, $routeParams) {
-	console.log("");
+function RepoController($scope, $resource, $routeParams, RepoService) {
+	console.log($routeParams)
 }
