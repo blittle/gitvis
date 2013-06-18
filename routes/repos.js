@@ -5,8 +5,11 @@ exports.getRepos = function(req, res) {
 }
 
 exports.getRepo = function(req, res) {
+	var id = req.params.id;
+
 	res.send({
-		history: repoLoader.getRepoData(req.params.id)
+		name: repoLoader.getRepoName(id),
+		history: repoLoader.getRepoData(id)
 	});
 }
 

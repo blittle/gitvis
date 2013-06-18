@@ -88,6 +88,11 @@ exports.getRepoData = function(id) {
 	return repoData[id] ? repoData[id].history : {};
 }
 
+exports.getRepoName = function(id) {
+	var repo = _.find(repos, {id: id});
+	return repo ? repo.name : null;
+}
+
 exports.createRepo = function(name) {
 
 };
