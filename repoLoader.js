@@ -26,8 +26,14 @@ function loadRepos() {
 						return;
 					}
 
+					var rawHistory = ParseGit.parseGit(file);
+
 					repoData[repo.id] = {
-						history: ParseGit.parseGit(file)
+						rawHistory: rawHistory,
+						parsedHistory: {
+							commiterTotals: GitStructures.commiterHistory.totals(rawHistory, {toArray: true}),
+							totals: GitStructures.commiterHistory.history(rawHistory)
+						}
 					}
 					console.log('Successfully loaded ', repo.name);
 				})
@@ -85,7 +91,7 @@ exports.getRepos = function() {
 };
 
 exports.getRepoData = function(id) {
-	return repoData[id] ? repoData[id].history : {};
+	return repoData[id] ? repoData[id].parsedHistory : {};
 }
 
 exports.getRepoName = function(id) {

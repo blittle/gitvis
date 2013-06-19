@@ -25,3 +25,4 @@ gitvis.iws
 cachedRepos/**/*
 cachedRepos/*.*
 cachedRepos/*
+public/components/**/*
