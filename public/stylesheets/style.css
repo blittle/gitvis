@@ -42,6 +42,11 @@ h2 {
   width: 1700px;
   height: 300px;
 }
+.heatMap svg {
+  width: 960px;
+  height: 140px;
+  margin: 0 auto;
+}
 .animate-enter,
 .animate-leave {
   -webkit-transition: 300ms cubic-bezier(0.25, 0.25, 0.75, 0.75) all;
@@ -67,4 +72,37 @@ h2 {
 }
 body {
   overflow: hidden;
+}
+.day {
+  fill: #fff;
+  stroke: #ccc;
+}
+.month {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+.RdYlGn .q0-9 {
+  fill: #ece7f2;
+}
+.RdYlGn .q1-9 {
+  fill: #d0d1e6;
+}
+.RdYlGn .q2-9 {
+  fill: #a6bddb;
+}
+.RdYlGn .q3-9 {
+  fill: #74a9cf;
+}
+.RdYlGn .q4-9 {
+  fill: #3690c0;
+}
+.RdYlGn .q5-9 {
+  fill: #0570b0;
+}
+.RdYlGn .q6-9 {
+  fill: #045a8d;
+}
+.RdYlGn .q7-9 {
+  fill: #023858;
 }
