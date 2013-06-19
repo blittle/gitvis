@@ -11,6 +11,6 @@ gitvis.controller('RepoController', function($scope, $resource, $routeParams, Re
 	});
 
 	$scope.changeIndex = function() {
-		$scope.index = $scope.index === 1 ? 0 : 1;
+		$scope.index = $scope.index === 2 ? 0 : $scope.index + 1;
 	}
 });

@@ -10,6 +10,11 @@ body {
 	font-size: 5em;
 }
 
+.high {
+	position: relative;
+	z-index: 2;
+}
+
 .repos {
 	width: 20em;
 	margin: auto;
@@ -58,6 +63,47 @@ h2 {
 	width: 960px;
 	height: 140px;
 	margin: 0 auto;
+}
+
+.fileTree {
+	svg {
+		width: 2800px;
+		height: 2800px;
+		margin: 0 auto;
+		zoom: .50;
+		position: relative;
+		z-index: 0;
+		top:-600px;
+	}
+
+	circle.node {
+		cursor: pointer;
+		stroke: #000;
+		stroke-width: .5px;
+	}
+
+	circle.node.directory {
+		stroke: #9ecae1;
+		stroke-width: 2px;
+	}
+
+	circle.node.collapsed {
+		stroke: #555;
+	}
+
+	.nodetext {
+		fill: #252929;
+		font-size: 2em;
+		font-weight: bold;
+		text-shadow: 0 0 0.2em white;
+	}
+
+	line.link {
+		fill: none;
+		stroke: #9ecae1;
+		stroke-width: 1.5px;
+	}
+
 }
 
 .animate-enter,

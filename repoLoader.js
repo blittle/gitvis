@@ -2,7 +2,8 @@ var _ = require('lodash')
 	, fs = require('fs')
 	, ParseGit = require('parse-git')
 	, GitStructures = require('git-structures')
-	, exec = require('child_process').exec;
+	, exec = require('child_process').exec
+	, async= require('async');
 
 var repos, repoLoadInterval;
 
@@ -12,37 +13,65 @@ function loadRepos() {
 	console.log("Loading repos");
 	_.each(repos, function(repo) {
 		console.log("git pulling ", repo.name);
-		exec('cd cachedRepos/'+repo.name +';git pull', function(error, response) {
-			if(error) console.error('Cannot pull repo', repo.name);
 
-			console.log('Logging ', repo.name);
-			exec('cd cachedRepos/'+repo.name +';git log --name-status > temp.txt', function(error) {
-				if(error) console.error('Cannot log repo', repo.name);
+		async.parallel([
+		    function(callback) {
+				exec('cd cachedRepos/'+repo.name +';git pull', function(error, response) {
+					if(error) console.error('Cannot pull repo', repo.name);
 
-				console.log('Loading and parsing repo ', repo.name);
-				fs.readFile('cachedRepos/'+repo.name+'/temp.txt', 'utf8', function(error, file) {
-					if(error || !file) {
-						console.error('Cannot read temporary git log output', repo.name);
-						return;
-					}
+					console.log('Logging ', repo.name);
+					exec('cd cachedRepos/'+repo.name +';git log --name-status > temp.txt', function(error) {
+						if(error) return callback('Cannot log repo ' + repo.name);
 
-					var rawHistory = ParseGit.parseGit(file);
+						console.log('Loading and parsing repo ', repo.name);
 
-					repoData[repo.id] = {
-						rawHistory: rawHistory,
-						parsedHistory: {
-							commiterTotals: GitStructures.commiterHistory.totals(rawHistory, {toArray: true}),
-							totals: GitStructures.commiterHistory.history(rawHistory)
-						}
-					}
-					console.log('Successfully loaded ', repo.name);
-				})
+						fs.readFile('cachedRepos/'+repo.name+'/temp.txt', 'utf8', function(error, file) {
+							if(error || !file) return callback('Cannot read temporary git log output ' + repo.name);
 
+							callback(null, file);
+						})
+					} );
+				});
+			},
+			function(callback) {
+				console.log("Executing cloc on repo", repo.name);
+				exec('cloc cachedRepos/' + repo.name + ' --csv --by-file --report-file=cachedRepos/'+repo.name+'/file.cloc', function(error, response) {
+					if(error) return callback("Cannot cloc repo " + repo.name);
 
-			} );
+					console.log("Reading cloc file for repo ", repo.name);
+					fs.readFile('cachedRepos/'+repo.name+'/file.cloc', 'utf8', function(error, file) {
+						if(error) return callback("Cannot read cloc file from repo " + repo.name);
+
+						callback(null, file);
+					});
+				});
+			}
+		], function(err, results) {
+			if(err) {
+				console.error(err);
+				return;
+			}
+
+			var rawHistory = ParseGit.parseGit(results[0]);
+
+			repoData[repo.id] = {
+				rawHistory: rawHistory,
+				parsedHistory: {
+					commiterTotals: GitStructures.commiterHistory.totals(rawHistory, {toArray: true}),
+					totals: GitStructures.commiterHistory.history(rawHistory),
+					files: results[1]
+				}
+			}
+
+			console.log('Successfully loaded ', repo.name);
 		});
+
+
+
 	});
 }
+
+//cloc symfony --csv --by-file --report-file=symfony.cloc
 
 function scanRepos() {
 	console.log("Scanning cachedRepos directory");
