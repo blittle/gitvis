@@ -35,12 +35,8 @@ gitvis.directive('heatMap', function() {
 						week = d3.time.format("%U"),
 						percent = d3.format(".1%");
 
-					var color = d3.scale.quantize()
-						.domain([0, 40])
-						.range(d3.range(8).map(function(d) { return "q" + d + "-9"; }));
-
 					var svg = d3.select(element.children()[0]).selectAll('svg')
-						.data(d3.range(2010, 2014))
+						.data(d3.range(scope.startYear, scope.endYear))
 						.enter().append("svg")
 						.attr("width", width)
 						.attr("height", height)
@@ -72,15 +68,22 @@ gitvis.directive('heatMap', function() {
 						.attr("class", "month")
 						.attr("d", monthPath);
 
+					var formattedData = formatData(data),
+						totalCommits = 0;
 
 					var days = d3.nest()
 						.key(function(d) {
 							return d.date;
 						})
 						.rollup(function(d) {
+							totalCommits += d[0].count;
 							return d[0].count;
 						})
-						.map(formatData(data));
+						.map(formattedData);
+
+					var color = d3.scale.quantize()
+						.domain([0, Math.floor((totalCommits / formattedData.length) * 3)])
+						.range(d3.range(8).map(function(d) { return "q" + d + "-9"; }));
 
 					rect.filter(function(d) {
 						return d in days;
@@ -107,7 +110,9 @@ gitvis.directive('heatMap', function() {
 		},
 
 		scope: {
-			graphData: '=piData'
+			graphData: '=piData',
+			startYear: '@',
+			endYear  : '@'
 		}
 	};
 });
