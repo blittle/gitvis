@@ -72,23 +72,23 @@ gitvis.directive('heatMap', function() {
 						.attr("class", "month")
 						.attr("d", monthPath);
 
-//					d3.csv("dji.csv", function(error, csv) {
-						var days = d3.nest()
-							.key(function(d) {
-								return d.date;
-							})
-							.rollup(function(d) {
-								return d[0].count;
-							})
-							.map(formatData(data));
-//
-						rect.filter(function(d) {
-							return d in days;
+
+					var days = d3.nest()
+						.key(function(d) {
+							return d.date;
 						})
-							.attr("class", function(d) { return "day " + color(days[d]); })
-							.select("title")
-							.text(function(d) { return d + ": " + days[d] + " commits"; });
-//					});
+						.rollup(function(d) {
+							return d[0].count;
+						})
+						.map(formatData(data));
+
+					rect.filter(function(d) {
+						return d in days;
+					})
+						.attr("class", function(d) { return "day " + color(days[d]); })
+						.select("title")
+						.text(function(d) { return d + ": " + days[d] + " commits"; });
+
 
 					function monthPath(t0) {
 						var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
