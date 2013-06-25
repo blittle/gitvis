@@ -1,32 +1,5 @@
 gitvis.directive('fileTree', function() {
 
-	var convertFromClocToJSON = function(data) {
-		var lines = data.split("\n");
-		lines.shift(); // drop the header line
-
-		var json = {};
-		lines.forEach(function(line) {
-			var cols = line.split(',');
-			var filename = cols[1];
-			if (!filename) return;
-			var elements = filename.split(/[\/\\]/);
-			var current = json;
-			elements.forEach(function(element) {
-				if (!current[element]) {
-					current[element] = {};
-				}
-				current = current[element];
-			});
-			current.language = cols[0];
-			current.size = parseInt(cols[4], 10);
-		});
-
-		json = getChildren(json)[0];
-		json.name = 'root';
-
-		return json;
-	};
-
 	var getChildren = function(json) {
 		var children = [];
 		if (json.language) return children;
@@ -56,7 +29,7 @@ gitvis.directive('fileTree', function() {
 			scope.$watch('treeData', function(data) {
 				if(data) {
 					var myFlower = new CodeFlower(element.children()[0], 2800, 2800);
-					myFlower.update(convertFromClocToJSON(data));
+					myFlower.update(data);
 				}
 			});
 		},
