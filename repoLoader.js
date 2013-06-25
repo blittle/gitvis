@@ -32,19 +32,6 @@ function loadRepos() {
 						})
 					} );
 				});
-			},
-			function(callback) {
-				console.log("Executing cloc on repo", repo.name);
-				exec('cloc cachedRepos/' + repo.name + ' --csv --by-file --report-file=cachedRepos/'+repo.name+'/file.cloc', function(error, response) {
-					if(error) return callback("Cannot cloc repo " + repo.name);
-
-					console.log("Reading cloc file for repo ", repo.name);
-					fs.readFile('cachedRepos/'+repo.name+'/file.cloc', 'utf8', function(error, file) {
-						if(error) return callback("Cannot read cloc file from repo " + repo.name);
-
-						callback(null, file);
-					});
-				});
 			}
 		], function(err, results) {
 			if(err) {
@@ -59,7 +46,7 @@ function loadRepos() {
 				parsedHistory: {
 					commiterTotals: GitStructures.commiterHistory.totals(rawHistory, {toArray: true}),
 					totals: GitStructures.commiterHistory.history(rawHistory),
-					files: results[1]
+					files: GitStructures.fileTree.codeFlower(GitStructures.fileTree.fileTree(rawHistory))
 				}
 			}
 

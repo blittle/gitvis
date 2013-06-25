@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='gitvis'>
+<html>
 <head>
 	<title><%= title %></title>
 
@@ -15,7 +15,7 @@
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js"></script>
 
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
 	<script src="http://code.angularjs.org/1.1.5/angular-resource.js"></script>
 
 	<script>
@@ -33,7 +33,7 @@
 	<script src="/scripts/directives/heatMap.js"></script>
 	<script src="/scripts/directives/fileTree.js"></script>
 </head>
-<body>
+<body ng-app='gitvis'>
 	<div ng-view ng-animate="main"></div>
 </body>
 </html>
