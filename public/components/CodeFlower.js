@@ -62,13 +62,13 @@ CodeFlower.prototype.update = function(json) {
     .classed("collapsed", function(d) { return d._children ? 1 : 0; });
 
   this.node.transition()
-    .attr("r", function(d) { return d.children ? 3.5 : Math.pow(d.size, 2/5) || 1; });
+    .attr("r", function(d) { return d.children ? 3.5 : Math.pow(d.size, 3/5) || 1; });
 
   // Enter any new nodes
   this.node.enter().append('svg:circle')
     .attr("class", "node")
     .classed('directory', function(d) { return (d._children || d.children) ? 1 : 0; })
-    .attr("r", function(d) { return d.children ? 3.5 : Math.pow(d.size, 2/5) || 1; })
+    .attr("r", function(d) { return d.children ? 3.5 : Math.pow(d.size, 3/5) || 1; })
     .style("fill", function color(d) {
       return "hsl(" + parseInt(360 / total * d.id, 10) + ",90%,70%)";
     })
@@ -121,7 +121,7 @@ CodeFlower.prototype.click = function(d) {
 
 CodeFlower.prototype.mouseover = function(d) {
   this.text.attr('transform', 'translate(' + d.x + ',' + (d.y - 5 - (d.children ? 3.5 : Math.sqrt(d.size) / 2)) + ')')
-    .text(d.name + ": " + d.size + " loc")
+    .text(d.name + ": " + d.size + " changes")
     .style('display', null);
 };
 

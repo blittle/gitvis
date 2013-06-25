@@ -30,6 +30,7 @@ gitvis.directive('fileTree', function() {
 				if(data) {
 					var myFlower = new CodeFlower(element.children()[0], 2800, 2800);
 					myFlower.update(data);
+					$(element).find('svg').css("zoom", $(window).height() / 2800);
 				}
 			});
 		},
