@@ -10,9 +10,9 @@ gitvis.directive('piChart', function() {
 
 					nv.addGraph(function() {
 						var width = 400,
-							height = nv.utils.windowSize().height  - 300;
+							height = nv.utils.windowSize().height  - 350;
 
-						height = height > 500 ? 500 : height;
+						height = 340;
 
 						var chart = nv.models.pieChart()
 							.values(function(d) { return d })
