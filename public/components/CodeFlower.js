@@ -1,3 +1,5 @@
+
+
 var CodeFlower = function(selector, w, h) {
   this.w = w;
   this.h = h;
@@ -18,7 +20,26 @@ var CodeFlower = function(selector, w, h) {
     .charge(function(d) { return d._children ? -d.size / 100 : -40; })
     .linkDistance(function(d) { return d.target._children ? 80 : 25; })
     .size([h, w]);
+
+  this.started = false;
 };
+
+//CodeFlower.prototype.restart = function restart() {
+//    link = link.data(links);
+//
+//    link.enter().insert("line", ".node")
+//        .attr("class", "link");
+//
+//    node = node.data(nodes);
+//
+//    node.enter().insert("circle", ".cursor")
+//        .attr("class", "node")
+//        .attr("r", 5)
+//        .call(force.drag);
+//
+//    force.start();
+//}
+
 
 CodeFlower.prototype.update = function(json) {
   if (json) this.json = json;
@@ -36,7 +57,8 @@ CodeFlower.prototype.update = function(json) {
 
   // Restart the force layout
   this.force
-    .gravity(Math.atan(total / 50) / Math.PI * 0.4)
+//    .gravity(Math.atan(total / 50) / Math.PI * 0.4)
+    .gravity(.0001)
     .nodes(nodes)
     .links(links)
     .start();

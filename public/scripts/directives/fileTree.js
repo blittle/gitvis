@@ -20,23 +20,51 @@ gitvis.directive('fileTree', function() {
 		return children;
 	};
 
+    function render(scope, mappedFiles, element, attrs, index) {
+
+        if(scope.treeData) {
+
+            if(index > scope.treeData.length - 1) return;
+
+            var data = scope.treeData;
+
+            var myFlower = new CodeFlower(element.children()[0], 2800, 2800);
+            $(element).find('svg').css("zoom", $(window).height() / 2800);
+
+            var files = GitStruct.fileTree.codeFlower(
+                GitStruct.fileTree.fileTreeIndex(data, mappedFiles, index, {size: 0}), {size: 0}
+            )
+
+            myFlower.update(files);
+
+        }
+    }
+
 	return {
 		// Restrict it to be an attribute in this case
 		restrict: 'E',
 		// responsible for registering DOM listeners as well as updating the DOM
 		link: function(scope, element, attrs) {
 
-			scope.$watch('treeData', function(data) {
-				if(data) {
-					var myFlower = new CodeFlower(element.children()[0], 2800, 2800);
-					myFlower.update(data);
-					$(element).find('svg').css("zoom", $(window).height() / 2800);
-				}
-			});
+            var index = 0;
+            var mappedFiles = {name: "root", c: {}}
+
+            render(scope, mappedFiles, element, attrs, index);
+
+            $(document).keyup(function(e) {
+                if(e.which == 39) {
+                    render(scope, mappedFiles, element, attrs, ++index);
+                }
+            })
+
+//			scope.$watch('index', function(index) {
+
+//			});
 		},
 
 		scope: {
-			treeData: '='
+			treeData: '=',
+            index: '@'
 		}
 	};
 });

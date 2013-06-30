@@ -9,7 +9,7 @@ gitvis.controller('RepoController', function($scope, $resource, $routeParams, Re
 		$scope.graphData = {
             commiterTotals: GitStruct.commiterHistory.commitTotals(repo.history, {toArray: true}),
             totals: GitStruct.commiterHistory.allCommitsHistory(repo.history),
-            files: {}
+            raw: repo.history
         }
 
 //					commiterTotals: GitStructures.commiterHistory.totals(rawHistory, {toArray: true}),
